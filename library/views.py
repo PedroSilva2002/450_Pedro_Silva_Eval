@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from .models import Book
 
 def index(request):
@@ -21,3 +21,12 @@ def book_info(request, pk):
     """View function for book info."""
     book = get_object_or_404(Book, pk=pk)
     return render(request, "book_info.html", {'book':book})
+
+
+def delete_book(request, pk):
+    """View function for deleting a book."""
+    book = get_object_or_404(Book, pk=pk)
+    if request.method == 'POST':
+        book.delete()
+        return redirect('index')  # Redirect to the home page after deletion
+    return render(request, "confirm_delete.html", {'book': book})
