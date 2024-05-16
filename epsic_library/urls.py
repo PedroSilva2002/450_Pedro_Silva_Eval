@@ -22,5 +22,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('<int:pk>',views.book_info, name="info"),
-    path('delete/<int:pk>/', views.delete_book, name='delete_book')
 ]
