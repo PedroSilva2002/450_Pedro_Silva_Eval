@@ -2,7 +2,7 @@ import pytest
 from django.test import Client
 from django.urls import reverse
 
-# Objectif du test : tester le comportement de la view index dans des conditions normales d'utlisation
+# Objectif du test integration : tester le comportement de la view index dans des conditions normales d'utlisation
 @pytest.mark.django_db
 def test_index_view():
     # Création d'un client de test pour simuler les requêtes HTTP vers les vues
