@@ -1,4 +1,6 @@
 from django.shortcuts import get_object_or_404, render, redirect
+from django.views import View
+
 from .models import Book
 
 def index(request):
@@ -22,3 +24,12 @@ def book_info(request, pk):
     book = get_object_or_404(Book, pk=pk)
     return render(request, "book_info.html", {'book':book})
 
+class DeleteBookView(View):
+    def get(self, request, pk):
+        book = get_object_or_404(Book, pk=pk)
+        return render(request, 'delete_book.html', {'book': book})
+
+    def post(self, request, pk):
+        book = get_object_or_404(Book, pk=pk)
+        book.delete()
+        return redirect('index')

@@ -1,26 +1,27 @@
-import pytest
+from django.test import TestCase, Client
+from django.urls import reverse
 from library.models import Book
-from django.test import Client, TestCase
-from django.core.exceptions import ObjectDoesNotExist
 
-
-class BookDelete(TestCase):
+class BookIntegrationTest(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        Book.objects.create(author="Dominique Roques", title="Pico Bogue")
+        # Create a book to be deleted in each test method
+        cls.book = Book.objects.create(author="Dominique Roques", title="Pico Bogue")
 
-    @pytest.mark.django_db
-    def test_delete_book_with_admin_interface(self):
-        book = Book.objects.get(id=1)
-        print(book.title)
-        book.delete()
+    def test_delete_book(self):
+        # Act: Send a POST request to delete the book
+        client = Client()
+        print("Book Title before deletion:", self.book.title)
+        response = client.post(reverse('delete_book', args=[self.book.id]))
 
-        # Attempt to retrieve the deleted book, should raise DoesNotExist exception
-        try:
-            deleted_book = Book.objects.get(id=1)
-            book_exists = True
-        except ObjectDoesNotExist:
-            book_exists = False
+        # Print the status code
+        print("Status code:", response.status_code)
 
-        assert not book_exists
+        # Assert
+        # Redirect to the appropriate page after deletion (in this case, the index page)
+        self.assertRedirects(response, reverse('index'), status_code=302, target_status_code=200)
+
+        # Check that the book has been deleted from the database
+        book_exists = Book.objects.filter(id=self.book.id).exists()
+        self.assertFalse(book_exists, "The book was not deleted from the database.")

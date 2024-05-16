@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Supprimer le livre "{{ book.title }}"</title>
+</head>
+<body>
+    <h1>Supprimer le livre "{{ book.title }}"</h1>
+    <p>Êtes-vous sûr de vouloir supprimer le livre "{{ book.title }}" de "{{ book.author }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Supprimer</button>
+    </form>
+</body>
+</html>
