@@ -1,3 +1,6 @@
+
+![Tests](https://github.com/PedroSilva2002/450_Pedro_Silva_Eval/actions/workflows/web-app.yml/badge.svg)
+
 # Librairie EPSIC
 
 Web app simple écrite avec Django pour le module 450.
