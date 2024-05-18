@@ -24,6 +24,10 @@ def book_info(request, pk):
     book = get_object_or_404(Book, pk=pk)
     return render(request, "book_info.html", {'book':book})
 
+def book_list(request):
+    books = Book.objects.all()
+    return render(request, 'book_list.html', {'books': books})
+
 class DeleteBookView(View):
     def get(self, request, pk):
         book = get_object_or_404(Book, pk=pk)
@@ -33,3 +37,4 @@ class DeleteBookView(View):
         book = get_object_or_404(Book, pk=pk)
         book.delete()
         return redirect('index')
+

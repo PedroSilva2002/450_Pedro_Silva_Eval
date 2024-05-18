@@ -17,11 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from library import views
-from library.views import DeleteBookView
+from library.views import DeleteBookView, book_list
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('<int:pk>',views.book_info, name="info"),
+    path('books/', book_list, name='book_list'),
     path('delete/<int:pk>/', DeleteBookView.as_view(), name='delete_book'),
 ]
