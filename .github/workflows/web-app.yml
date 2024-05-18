@@ -28,7 +28,7 @@ jobs:
 
     # Copy pytest.ini file
     - name: Copy pytest.ini
-      run: cp path/to/pytest.ini .
+      run: cp pytest.ini .
 
     # Run Tests
     - name: Run Tests
