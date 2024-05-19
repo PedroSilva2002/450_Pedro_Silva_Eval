@@ -26,9 +26,15 @@ jobs:
         pip install pytest
         pip install flake8
 
+    # Set DJANGO_SETTINGS_MODULE
+    - name: Set DJANGO_SETTINGS_MODULE
+      run: export DJANGO_SETTINGS_MODULE=epsic_library.settings  # Adjust path if necessary
+
+    # Initialize Django
+    - name: Initialize Django
+      run: python -c "import django; django.setup()"
+
     # Run Tests
     - name: Run Tests
-      env:
-        DJANGO_SETTINGS_MODULE: "epsic_library.settings"
       run: |
         python -m pytest -v
