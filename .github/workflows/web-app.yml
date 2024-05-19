@@ -1,4 +1,4 @@
-name: Django Web App
+name: Django web app
 
 on:
   push:
@@ -8,37 +8,25 @@ on:
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.7, 3.8, 3.9]
 
     steps:
     - uses: actions/checkout@v3
-
-    # Install Python and dependencies
-    - name: Set up Python 3.10
+    - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v3
       with:
-        python-version: "3.10"
-
+        python-version: ${{ matrix.python-version }}
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
         pip install Django
         pip install pytest
-        pip install flake8
-
-    # Set DJANGO_SETTINGS_MODULE
-    - name: Set DJANGO_SETTINGS_MODULE
-      run: export DJANGO_SETTINGS_MODULE=epsic_library.settings  # Adjust path if necessary
-
-    # Initialize Django settings
-    - name: Initialize Django settings
-      run: python -c "import django; from django.conf import settings; settings.configure()" 
-
-    # Initialize Django
-    - name: Initialize Django
-      run: python -c "import django; django.setup()"
-
-    # Run Tests
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Run Tests
       run: |
-        python -m pytest -v
+         python manage.py test 
