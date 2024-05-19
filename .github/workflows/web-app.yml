@@ -1,4 +1,4 @@
-name: Django web app
+name: Django Web App
 
 on:
   push:
@@ -24,8 +24,13 @@ jobs:
         python -m pip install --upgrade pip
         pip install Django
         pip install pytest
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        pip install flake8
+
+    # Set DJANGO_SETTINGS_MODULE
+    - name: Set DJANGO_SETTINGS_MODULE
+      run: export DJANGO_SETTINGS_MODULE=epsic_library.settings  # Adjust path if necessary
 
     # Run Tests
     - name: Run Tests
-      run: python -m pytest -v
+      run: |
+        python -m pytest -v
