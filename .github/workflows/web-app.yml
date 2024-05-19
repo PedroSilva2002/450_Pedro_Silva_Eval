@@ -30,6 +30,10 @@ jobs:
     - name: Set DJANGO_SETTINGS_MODULE
       run: export DJANGO_SETTINGS_MODULE=epsic_library.settings  # Adjust path if necessary
 
+    # Initialize Django settings
+    - name: Initialize Django settings
+      run: python -c "import django; from django.conf import settings; settings.configure()" 
+
     # Initialize Django
     - name: Initialize Django
       run: python -c "import django; django.setup()"
