@@ -23,4 +23,4 @@ jobs:
         pip install pytest Django
     - name: Run Tests
       run: |
-         python manage.py test
+         pytest epsic_library/tests 
