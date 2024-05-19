@@ -3,7 +3,7 @@ from unittest.mock import patch
 from library.views import book_list
 
 
-@pytest.mark.django_db
+
 @patch('library.views.Book.objects.all')
 def test_book_list_view(mocker):
     # Arrange
